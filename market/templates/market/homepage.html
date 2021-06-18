@@ -1,0 +1,39 @@
+{% extends 'market/base.html' %}
+
+{% block content %}
+</br>
+<div class="row">
+  <div class="col-3 col-lg-2">
+      <h3>Здесь будут фильтры</h3>
+  </div>
+  <div class="col-9 col-lg-10">
+    <div class="row">
+        {% for item in items %}
+         <div class="col-4 col-lg-3">
+             <div class="card">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                   {% for image in images %}
+                    {% if image.count == item.pk %}
+                    <div class="carousel-item {% if image.is_active == 1 %}active{% endif %}">
+                      <img src="{{ image.image }}" class="d-block w-100 img-fluid" alt="...">
+                    </div>
+                    {% endif %}
+                   {% endfor %}
+                  </div>
+               <div class="card-body">
+                <h4><a href="{% url 'item_page' pk=item.pk %}">{{ item.brand }}. {{ item.name }}</a></h4>
+                <h5>{{ items.color }}</h5>
+                <h5>{{ item.size }}</h5>
+                <h5>{{ item.category }}</h5>
+                <h6>{{ item.sec_category }}</h6>
+                <h4><span class="badge bg-info text-dark">{{ item.price }}₽</span></h4>
+               </div>
+                </div>
+               </div>
+         </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

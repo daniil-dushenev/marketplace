@@ -1,0 +1,33 @@
+{% extends 'market/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-4">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+               {% for image in images %}
+                <div class="carousel-item {% if image.is_active == 1 %}active{% endif %}">
+                  <img src="{{ image.image }}" class="d-block w-100 img-fluid" alt="...">
+                </div>
+               {% endfor %}
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Предыдущий</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Следующий</span>
+                  </button>
+              </div>
+        </div>
+    </div>
+    <div class="col-8">
+            <h1>{{ item.brand }}. {{ item.name }}</h1>
+            <h2>Цвет: {{ item.color }}</h2>
+            <h3>{{ item.category }}</h3>
+            <h4>{{ item.sec_category }}</h4>
+            <h2><span class="badge bg-info text-dark">{{ item.price }}₽</span></h2>
+            <p>{{ item.info|linebreaksbr }}</p>
+    </div>
+</div>
+{% endblock %}
