@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}&nbsp;{% block content %}
+<div class="row justify-content-center">
+<div class="col-sm-3 col-xl-4">
+
+  </div>
+  <div class="col-sm-6 col-xl-4">
+    <div class="card">
+     <div class="card-body">
+      <h2 class="card-title display-5">Профиль</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="input-group mb-3">
+          <span class="input-group-text"><h6>{{ u_form.first_name.label_tag }}</h6></span>
+          {% render_field u_form.first_name class="form-control" value=user.first_name %}
+          <div class="form-text">{{ u_form.first_name.help_text }}</div>
+      </div>
+      <div class="input-group mb-3">
+          <span class="input-group-text"><h6>{{ u_form.last_name.label_tag }}</h6></span>
+            {% render_field u_form.last_name class="form-control" value=user.last_name  %}
+          <div class="form-text">{{ u_form.last_name.help_text }}</div>
+      </div>
+      <div class="input-group mb-3">
+          <span class="input-group-text"><h6>{{ p_form.birthdate.label_tag }}</h6></span>
+              {% render_field p_form.birthdate value=profile.birthdate %}
+
+            <p class="form-text">{{ p_form.birthdate.help_text|safe }}</p>
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text"><h6>{{ p_form.phonenumber.label_tag }}</h6></span>
+            {% render_field p_form.phonenumber for="phone_num" class="form-control" placeholder="+7XXXXXXXXXX" value=profile.phonenumber%}
+            <p class="form-text">{{ p_form.phonenumber.help_text|safe }}</p>
+        </div>
+      <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+     </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-xl-4">
+
+  </div>
+</div>
+
+{% endblock content %}

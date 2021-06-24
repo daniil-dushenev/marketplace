@@ -1,0 +1,94 @@
+{% extends 'market/base.html' %}
+{% load widget_tweaks %}
+&nbsp;{% block content %}
+<div class="row justify-content-center">
+  <div class="col-sm-3 col-xl-4">
+
+  </div>
+  <div class="col-sm-6 col-xl-4">
+    <div class="card">
+ <div class="card-body">
+{% if can_create %}
+  <h2 class="card-title display-5">Изменить</h2>
+<form enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label"><h6>{{ form.brand.label_tag }}</h6></label>
+          {% render_field form.brand class="form-control" value=item.brand %}
+          <div class="form-text">{{ form.brand.help_text }}</div>
+      </div>
+    <div class="mb-3">
+      <label class="form-label"><h6>{{ form.name.label_tag }}</h6></label>
+          {% render_field form.name class="form-control" value=item.name %}
+          <div class="form-text">{{ form.name.help_text }}</div>
+      </div>
+    <div class="mb-3">
+      <label class="form-label"><h6>{{ form.color.label_tag }}</h6></label>
+          {% render_field form.color class="form-control" value=item.color %}
+          <div class="form-text">{{ form.color.help_text }}</div>
+      </div>
+    <div class="mb-3">
+      <label class="form-label"><h6>{{ form.category.label_tag }}</h6></label>
+          {% render_field form.category class="form-control" value=item.category %}
+          <div class="form-text">{{ form.category.help_text }}</div>
+      </div>
+    <div class="mb-3">
+      <label class="form-label"><h6>{{ form.sec_category.label_tag }}</h6></label>
+          {% render_field form.sec_category class="form-control" value=item.sec_category %}
+          <div class="form-text">{{ form.sec_category.help_text }}</div>
+      </div>
+    <div class="mb-3">
+      <label class="form-label"><h6>{{ form.price.label_tag }}</h6></label>
+          {% render_field form.price class="form-control" value=item.price %}
+          <div class="form-text">{{ form.price.help_text }}</div>
+      </div>
+    <div class="mb-3">
+      <label class="form-label"><h6>{{ form.info.label_tag }}</h6></label>
+          {% render_field form.info class="form-control" value=item.info %}
+          <div class="form-text">{{ form.info.help_text }}</div>
+      </div>
+    {% if not img_add %}
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                   {% for image in images %}
+                    <div class="carousel-item {% if image.is_active == 1 %}active{% endif %}">
+                      <img src="{% if item.lamoda_id == '' %}/{% endif %}{{ image.image }}" class="d-block w-100 img-fluid" alt="...">
+                    </div>
+                   {% endfor %}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Предыдущий</span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Следующий</span>
+                      </button>
+                  </div>
+            </div>
+    {% endif %}
+    {% if img_add %}
+        <div class="mb-3">
+          <label class="form-label"><h6>{{ imgform.image.label_tag }}</h6></label>
+              {% render_field imgform.image class="form-control" type="file" id="formFileMultiple" %}
+            <div class="form-text"><span class="badge bg-danger">{{ error }}</span></div>
+          </div>
+    {% endif %}
+  <button type="submit" class="btn btn-primary" name="save" value="save">Отправить</button>
+</form>
+{% if not img_add %}
+     <form action="#" method="post">
+                {% csrf_token %}
+        <button class="btn btn-danger" name="img_add" value="img_add">Изменить фотографии</button>
+     </form>
+{% endif %}
+{% else %}
+<h2 class="card-title display-5">Отказано в доступе</h2>
+{% endif %}
+ </div>
+</div>
+  </div>
+      <div class="col-sm-3 col-xl-4">
+
+  </div>
+</div>
+{% endblock content %}

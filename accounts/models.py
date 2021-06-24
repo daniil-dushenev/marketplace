@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
    user = models.OneToOneField(User, on_delete=models.CASCADE)
-   phonenumber = models.CharField(verbose_name="Телефон", max_length=10)
+   phonenumber = models.CharField(verbose_name="Телефон", max_length=12)
    birthdate = models.DateField(verbose_name="Дата рождения")
 
 

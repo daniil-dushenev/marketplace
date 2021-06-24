@@ -14,26 +14,50 @@
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                   <div class="carousel-inner">
                    {% for image in images %}
-                    {% if image.count == item.pk %}
+                    {% if image.count == item.id %}
                     <div class="carousel-item {% if image.is_active == 1 %}active{% endif %}">
-                      <img src="{{ image.image }}" class="d-block w-100 img-fluid" alt="...">
+                      <img src="{% if item.lamoda_id == '' %}/{% endif %}{{ image.image }}" class="d-block w-100 img-fluid" alt="...">
                     </div>
                     {% endif %}
                    {% endfor %}
                   </div>
                <div class="card-body">
                 <h4><a href="{% url 'item_page' pk=item.pk %}">{{ item.brand }}. {{ item.name }}</a></h4>
-                <h5>{{ items.color }}</h5>
-                <h5>{{ item.size }}</h5>
                 <h5>{{ item.category }}</h5>
                 <h6>{{ item.sec_category }}</h6>
+               <div class="row">
+               <div class="col-6">
                 <h4><span class="badge bg-info text-dark">{{ item.price }}₽</span></h4>
+               </div>
+               {% if can_create %}
+                   <div class="col-6">
+                   <form action="#" method="post">
+                    {% csrf_token %}
+                    <button class="btn" value={{ item.id }} name="delete"><span class="badge bg-danger">Удалить</span></button>
+                   </form>
+                   </div>
+               {% endif %}
+               </div>
                </div>
                 </div>
                </div>
          </div>
         {% endfor %}
     </div>
+    </br>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if pk != 1%}
+          <li class="page-item"><form method="post">{% csrf_token %}<button class="page-link" value="{{ pk }}" name="backpage">Назад</button></form></li>
+        {% endif %}
+          {% for page in page_list%}
+          <li class="page-item {% if pk == page %}active{% endif %}"><a class="page-link" href="{% url 'homepage' pk=page %}">{{ page }}</a></li>
+        {% endfor %}
+        {% if pk != pages%}
+          <li class="page-item"><form method="post">{% csrf_token %}<button class="page-link" value="{{ pk }}" name="nextpage">Вперёд</button></form></li>
+        {% endif %}
+      </ul>
+    </nav>
   </div>
 </div>
 {% endblock %}

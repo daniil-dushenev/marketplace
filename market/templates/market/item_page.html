@@ -7,7 +7,7 @@
               <div class="carousel-inner">
                {% for image in images %}
                 <div class="carousel-item {% if image.is_active == 1 %}active{% endif %}">
-                  <img src="{{ image.image }}" class="d-block w-100 img-fluid" alt="...">
+                  <img src="{% if item.lamoda_id == '' %}/{% endif %}{{ image.image }}" class="d-block w-100 img-fluid" alt="...">
                 </div>
                {% endfor %}
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
@@ -28,6 +28,13 @@
             <h4>{{ item.sec_category }}</h4>
             <h2><span class="badge bg-info text-dark">{{ item.price }}₽</span></h2>
             <p>{{ item.info|linebreaksbr }}</p>
+   {% if can_create %}
+    <form method="post">
+                {% csrf_token %}
+                <button class="btn" value={{ item.id }} name="delete"><span class="badge bg-danger">Удалить</span></button>
+                <button class="btn" value={{ item.id }} name="red"><span class="badge bg-warning">Редактировать</span></button>
+    </form>
+    {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load phone %}
+&nbsp;{% block content %}
+<div class="row justify-content-center">
+<div class="col-sm-3 col-xl-4">
+
+  </div>
+   <div class="col-sm-6 col-xl-4">
+    <div class="card">
+     <div class="card-body">
+      <h2 class="card-title display-5">Профиль</h2>
+      <ul class="list-group">
+          <li class="list-group-item"><h4 class="card-subtitle">Имя пользователя: {{ user.username }}</h4></li>
+          <li class="list-group-item"><p class="card-text">Имя: {{ user.first_name }} {{ user.last_name }}</p></li>
+          <li class="list-group-item"><p class="card-text">Email: {{ user.email }}</p></li>
+          <li class="list-group-item"><p class="card-text">Дата рождения: {% if user.first_name == '' %}{% else %}{{ profile.birthdate }}{% endif %}</p></li>
+          <li class="list-group-item"><p class="card-text">Номер телефона: {{ profile.phonenumber|phone }}</p></li>
+      </ul>
+     <a href="{% url 'profile_inpt' %}">Изменить данные</a>
+     </div>
+    </div>
+</div>
+<div class="col-sm-3 col-xl-4">
+
+  </div>
+</div>
+{% endblock content %}
